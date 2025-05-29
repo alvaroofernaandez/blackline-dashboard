@@ -1,0 +1,71 @@
+---
+import "../styles/global.css";
+import Sidebar from '../components/General/Sidebar';
+import { Toaster } from 'sonner';
+import DarkModeButton from "../components/General/DarkModeButton";
+import AuthGuard from '../components/Auth/AuthGuard';
+
+interface Props {
+	title: string;
+	siteTitle: string;
+	havePlus?: boolean;
+	route?: string;
+}
+
+const { title, siteTitle, havePlus, route } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>Dashboard - {title}</title>
+		<meta name="description" content="Descripción breve y precisa del contenido de esta página para mejorar el SEO." />
+		<meta name="keywords" content="dashboard, administración, SEO, ejemplo, Astro, desarrollo web" />
+		<meta name="author" content="Tu Nombre o el Nombre de tu Empresa" />
+		<meta property="og:title" content="{siteTitle} - {title}" />
+		<meta property="og:description" content="Descripción breve y precisa del contenido de esta página para redes sociales." />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://tusitio.com" />
+		<meta property="og:image" content="https://tusitio.com/imagen-og.png" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="{siteTitle} - {title}" />
+		<meta name="twitter:description" content="Descripción breve para Twitter." />
+		<meta name="twitter:image" content="https://tusitio.com/imagen-twitter.png" />
+		<link rel="canonical" href="https://tusitio.com" />
+		<script>
+			(function() {
+					const theme = localStorage.getItem('theme');
+					if (theme === 'dark') {
+							document.documentElement.classList.add('dark');
+					} else {
+							document.documentElement.classList.remove('dark');
+					}
+			})();
+		</script>
+	</head>
+	<body class="h-screen w-screen overflow-hidden flex dark:text-white text-neutral-600">
+		<AuthGuard client:only="react"/>
+		<div class="absolute top-0 z-[-2] h-screen w-screen bg-gradient-to-tr from-white via-slate-200 to-neutral-300 dark:bg-neutral-800 dark:bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"></div>
+		
+		<Sidebar client:only="react"/>
+		<main class="flex-1 overflow-y-auto p-6 ">
+			<div class="flex items-center mb-4 justify-between">
+				<div class="flex justify-center">
+					<h1 class="text-3xl font-bold pl-10 dark:text-white text-neutral-600">{siteTitle}</h1>
+				</div>
+				<div class="flex justify-center mb-2 gap-2 items-center">
+					{havePlus && <a class="dark:bg-neutral-900 bg-neutral-700 dark:hover:bg-neutral-800 hover:bg-neutral-800 dark:text-white rounded-lg text-sm text-center items-center transition-all duration-300 ease-in-out p-3 text-white" href={route} aria-label="Añadir nuevo elemento">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus w-4 h-4"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+					</a>}
+					<DarkModeButton client:only="react" />
+				</div>
+			</div>
+			<hr class="border-gray-400 dark:border-gray-300 m-2" />
+			<slot />
+			<Toaster position='bottom-right' richColors client:visible/>
+		</main>
+	</body>
+</html>

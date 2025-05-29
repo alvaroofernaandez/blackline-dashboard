@@ -1,0 +1,8 @@
+---
+import IndividualEmailForm from '../components/Correos/IndividualEmailForm';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Correo" havePlus={false} siteTitle="Correo a usuario individual">
+	<IndividualEmailForm client:only="react" />
+</Layout>

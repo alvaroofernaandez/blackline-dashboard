@@ -1,0 +1,7 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CrearDesign from '../components/Diseños/CreateDesign.jsx';
+---
+<Layout title="Añadir Diseño" havePlus={false} siteTitle="Añadir Diseño">
+    <CrearDesign client:only="react" />
+</Layout>

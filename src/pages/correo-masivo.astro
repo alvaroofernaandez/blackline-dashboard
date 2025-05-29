@@ -1,0 +1,8 @@
+---
+import MasiveEmailForm from '../components/Correos/MasiveEmailForm';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Correo masivo" havePlus={false} siteTitle="Correo a todos los usuarios">
+	<MasiveEmailForm client:only="react" />
+</Layout>

@@ -1,0 +1,9 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import EditarSorteo from '../../components/Sorteos/EditRaffle';
+export const prerender = false;
+const { id } = Astro.params;
+---
+<Layout title="Editar Sorteo" havePlus={false} siteTitle="Editar Sorteo">
+    <EditarSorteo id={id} client:only="react" />
+</Layout>

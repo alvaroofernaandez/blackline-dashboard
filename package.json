@@ -1,0 +1,35 @@
+{
+  "name": "dashboard",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/node": "^9.2.2",
+    "@astrojs/react": "^4.1.2",
+    "@astrojs/tailwind": "^5.1.4",
+    "@midudev/tailwind-animations": "^0.2.0",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "astro": "^5.7.5",
+    "canvas-confetti": "^1.9.3",
+    "date-fns": "^4.1.0",
+    "js-cookie": "^3.0.5",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.483.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.5.2",
+    "sonner": "^2.0.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.6.3",
+    "zod": "^3.24.3",
+    "zustand": "^5.0.3"
+  }
+}

@@ -1,0 +1,9 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AsignarPremio from '../../components/Sorteos/AssignPrize';
+export const prerender = false;
+const { id } = Astro.params;
+---
+<Layout title="Asignar Premio" havePlus={false} siteTitle="Asignar Premio">
+    <AsignarPremio id={id} client:only="react" />
+</Layout>
