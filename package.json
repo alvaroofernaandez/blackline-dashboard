@@ -14,6 +14,7 @@
     "@astrojs/node": "^9.2.2",
     "@astrojs/react": "^4.1.2",
     "@astrojs/tailwind": "^5.1.4",
+    "@astrojs/vercel": "^8.1.4",
     "@midudev/tailwind-animations": "^0.2.0",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
