@@ -9,7 +9,7 @@ export const useCorreos = () => {
     try {
       setLoading(true);
 
-      const res = await fetch("/api/enviar_correos_masivos", {
+      const res = await fetch("/api/enviar_correos_masivos/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,7 +38,7 @@ export const useCorreos = () => {
     try {
       setLoading(true);
 
-      const res = await fetch("/api/enviar_correos_personalizado", {
+      const res = await fetch("/api/enviar_correos_personalizados/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -24,7 +24,7 @@ export const useSorteos = () => {
 
   const fetchSorteos = async () => {
     try {
-      const res = await fetch("/api/sorteos");
+      const res = await fetch("/api/sorteos/");
       if (!res.ok) throw new Error("No autorizado o error de red");
       const raw = await res.json();
       const validados = raw.map((sorteo) => sorteoSchema.parse(sorteo));
@@ -38,7 +38,14 @@ export const useSorteos = () => {
 
   const obtenerSorteoPorId = async (id) => {
     try {
-      const res = await fetch(`/api/sorteos/${id}`);
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("accessToken="))
+        ?.split("=")[1];
+      if (!token) throw new Error("Token no encontrado");
+      const res = await fetch(`/api/sorteo_por_id/${id}/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       if (res.ok) {
         const datos = await res.json();
         return sorteoSchema.parse(datos);
@@ -53,13 +60,18 @@ export const useSorteos = () => {
 
   const crearSorteo = async (nuevoSorteo) => {
     try {
+      const token = document.cookie 
+          .split("; ")
+          .find((row) => row.startsWith("accessToken="))
+          ?.split("=")[1];
+      if (!token) throw new Error("Token no encontrado");
       if (!nuevoSorteo.titulo || !nuevoSorteo.descripcion) {
         toast.error("Título y descripción son obligatorios.");
         return false;
       }
-      const response = await fetch("/api/sorteos", {
+      const response = await fetch("/api/sorteos/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(nuevoSorteo),
       });
       if (response.ok) {
@@ -87,15 +99,20 @@ export const useSorteos = () => {
 
   const actualizarSorteo = async (id, sorteo) => {
     try {
+      const token = document.cookie 
+      .split("; ")
+      .find((row) => row.startsWith("accessToken="))
+      ?.split("=")[1];
+      if (!token) throw new Error("Token no encontrado");
       const validation = sorteoSchema.safeParse(sorteo);
       if (!validation.success) {
         const errorMessages = validation.error.errors.map((err) => err.message);
         errorMessages.forEach((msg) => toast.error(msg));
         return false;
       }
-      const res = await fetch(`/api/sorteos/${id}`, {
+      const res = await fetch(`/api/sorteos/${id}/`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(validation.data),
       });
       if (res.ok) {
@@ -114,8 +131,14 @@ export const useSorteos = () => {
 
   const eliminarSorteo = async (id) => {
     try {
-      const res = await fetch(`/api/sorteos/${id}`, {
+      const token = document.cookie 
+      .split("; ")
+      .find((row) => row.startsWith("accessToken="))
+      ?.split("=")[1];
+      if (!token) throw new Error("Token no encontrado");
+      const res = await fetch(`/api/sorteos/${id}/`, {
         method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
       });
       if (res.ok) {
         toast.success("Sorteo eliminado con éxito");
@@ -133,9 +156,14 @@ export const useSorteos = () => {
 
   const asignarPremio = async (id, premio) => {
     try {
-      const res = await fetch(`/api/sorteos_asignar_premio/${id}`, {
+      const token = document.cookie 
+          .split("; ")
+          .find((row) => row.startsWith("accessToken="))
+          ?.split("=")[1];
+      if (!token) throw new Error("Token no encontrado");
+      const res = await fetch(`/api/sorteos_asignar_premio/${id}/`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ premio }),
       });
       if (res.ok) {
@@ -157,8 +185,14 @@ export const useSorteos = () => {
 
   const seleccionarGanador = async (id) => {
     try {
-      const res = await fetch(`/api/sorteos_seleccionar_ganador/${id}`, {
+      const token = document.cookie 
+          .split("; ")
+          .find((row) => row.startsWith("accessToken="))
+          ?.split("=")[1];
+      if (!token) throw new Error("Token no encontrado");
+      const res = await fetch(`/api/sorteos_seleccionar_ganador/${id}/`, {
         method: "PATCH",
+        headers: { Authorization: `Bearer ${token}` },
       });
       if (res.ok) {
         const { ganador } = await res.json();

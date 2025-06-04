@@ -24,7 +24,7 @@ export const useCitas = () => {
 
   const fetchCitas = async () => {
     try {
-      const res = await fetch("/api/citas");
+      const res = await fetch("/api/citas/");
       if (!res.ok) throw new Error("Error al cargar citas");
       const raw = await res.json();
       const validadas = raw.map((cita) => citaSchema.parse(cita));
@@ -53,7 +53,7 @@ export const useCitas = () => {
 
   const obtenerCitaPorId = async (id) => {
     try {
-      const res = await fetch(`/api/citas/${id}`);
+      const res = await fetch(`/api/cita_por_id/${id}`);
       if (!res.ok) throw new Error("Error al cargar la cita.");
       const datos = await res.json();
       return citaSchema.parse(datos);
@@ -65,7 +65,7 @@ export const useCitas = () => {
 
   const eliminarCita = async (id) => {
     try {
-      const res = await fetch(`/api/citas/${id}`, {
+      const res = await fetch(`/api/cita_por_id/${id}`, {
         method: "DELETE",
       });
       if (res.ok) {

@@ -32,7 +32,12 @@ const Sidebar = () => {
             >
                 <div className="text-2xl font-bold text-center mb-10 tracking-wide">
                     <a href="/">
-                        <img src="/logo.avif" alt="Logo" className="w-40 mx-auto animate-blurred-fade-in" loading="eager" />
+                        <img
+                            src="/logo.avif"
+                            alt="Logo"
+                            className="w-20 mx-auto animate-blurred-fade-in lg:w-40"
+                            loading="eager"
+                        />
                     </a>
                 </div>
 

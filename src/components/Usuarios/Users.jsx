@@ -24,9 +24,9 @@ const TablaUsuarios = () => {
     return <p className="text-red-500 text-center">No hay usuarios actualmente, añade un usuario</p>;
 
   return (
-    <div className="w-full mx-auto p-4">
+    <div className="w-full mx-auto p-4 mb-20">
       <h2 className="text-2xl font-semibold dark:text-white text-neutral-600 mb-4 text-center">Lista de Usuarios</h2>
-      <div className="max-h-[700px] overflow-y-auto rounded-xl animate-zoom-in duration-300 hidden md:block">
+      <div className="max-h-[700px] overflow-y-auto rounded-xl animate-zoom-in duration-300 hidden lg:block">
         <table className="w-full border border-gray-200 shadow-lg rounded-lg overflow-hidden">
           <thead className="dark:bg-neutral-950 bg-neutral-500 text-white sticky top-0 z-10">
             <tr>
@@ -57,7 +57,7 @@ const TablaUsuarios = () => {
                       className="dark:bg-neutral-800 bg-neutral-600 size-10 justify-items-center hover:scale-105 transition-all duration-500 text-white rounded-lg"
                       onClick={() => abrirModal(fila.id)}
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash2-icon lucide-trash-2 w-4 h-4"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash2-icon lucide-trash-2 w-4 h-4 mx-auto"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                     </button>
                   )}
                 </td>
@@ -66,7 +66,7 @@ const TablaUsuarios = () => {
           </tbody>
         </table>
       </div>
-      <div className="md:hidden flex flex-col gap-4">
+      <div className="lg:hidden flex flex-col gap-4">
         {usuarios.map((fila) => (
           <div key={fila.id} className="bg-white rounded-xl shadow border p-4 flex flex-col gap-2">
             <div>
@@ -86,7 +86,7 @@ const TablaUsuarios = () => {
                   className="dark:bg-neutral-800 bg-neutral-600 size-10 justify-items-center hover:scale-105 transition-all duration-500 text-white rounded-lg"
                   onClick={() => abrirModal(fila.id)}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash2-icon lucide-trash-2 w-4 h-4"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-trash2-icon lucide-trash-2 w-4 h-4 mx-auto"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
                 </button>
               )}
             </div>

@@ -9,7 +9,7 @@ const TablaFacturas = () => {
     return <p className="text-red-500 text-center">No hay facturas actualmente</p>;
 
   return (
-    <div className="p-4 h-full overflow-y-auto">
+    <div className="p-4 h-full overflow-y-auto mb-20">
       <h2 className="text-2xl font-bold mb-6 text-center dark:text-white text-neutral-600">
         Listado de Facturas
       </h2>

@@ -35,7 +35,7 @@ const AsignarPremio = ({ id }) => {
 
   return (
     <div className="p-4">
-      <form onSubmit={handleSubmit} className="max-w-[30%] mx-auto mt-10 animate-fade-in">
+      <form onSubmit={handleSubmit} className="max-w-[50%] mx-auto mt-10 animate-fade-in">
         <label htmlFor="premio" className="block mb-2">
           Premio:
         </label>

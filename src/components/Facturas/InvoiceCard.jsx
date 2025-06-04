@@ -29,7 +29,7 @@ const InvoiceCard = (props) => {
           type="button"
           aria-label="Ver factura"
           onClick={handleVerFactura}
-          className="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg text-sm hover:bg-blue-400 transition-all duration-300 flex items-center gap-2"
+          className="hidden lg:inline-flex bg-blue-500 text-white font-bold py-2 px-4 rounded-lg text-sm hover:bg-blue-400 transition-all duration-300 flex items-center gap-2"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-eye-icon lucide-eye h-4 w-4"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
           Ver

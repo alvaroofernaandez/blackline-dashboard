@@ -81,7 +81,7 @@ const Home = () => {
   };
 
   return (
-    <div className="p-8 text-white ">  
+    <div className="p-8 text-white mb-20 md:mb-0 ">  
       <div className="justify-center flex items-center mb-4">
         <HomeLoginButton client:only="react" />
       </div>

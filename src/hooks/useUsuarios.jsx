@@ -17,7 +17,7 @@ export const useUsuarios = () => {
 
   const fetchUsuarios = async () => {
     try {
-      const res = await fetch("/api/usuarios");
+      const res = await fetch("/api/usuarios/");
       if (!res.ok) throw new Error("No autorizado o error en la carga");
       const raw = await res.json();
       const validados = raw.map((usuario) => usuarioSchema.parse(usuario));
@@ -43,8 +43,17 @@ export const useUsuarios = () => {
 
   const eliminarUsuario = async (id) => {
     try {
+      const token = document.cookie 
+      .split("; ")
+      .find((row) => row.startsWith("accessToken="))
+      ?.split("=")[1];
+      if (!token) throw new Error("Token no encontrado");
       const res = await fetch(`/api/usuarios/${id}`, {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
       if (res.ok) {
         toast.success("Usuario eliminado con éxito");

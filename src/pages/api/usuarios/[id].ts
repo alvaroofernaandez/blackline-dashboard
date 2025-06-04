@@ -40,8 +40,11 @@ export const PUT: APIRoute = async ({ request, params, cookies }) => {
 };
 
 export const DELETE: APIRoute = async ({ params, cookies }) => {
-  const token = cookies.get("accessToken")?.value;
-  if (!token) return new Response("No autorizado", { status: 401 });
+    const token = document.cookie 
+      .split("; ")
+      .find((row) => row.startsWith("accessToken="))
+      ?.split("=")[1];
+    if (!token) throw new Error("Token no encontrado");
 
   const res = await fetch(`${API_BASE_URL}usuarios/${params.id}/`, {
     method: "DELETE",

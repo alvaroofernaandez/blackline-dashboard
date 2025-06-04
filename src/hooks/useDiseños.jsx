@@ -20,7 +20,7 @@ export const useDiseños = () => {
 
   const fetchDiseños = async () => {
     try {
-      const res = await fetch(`/api/diseños`);
+      const res = await fetch(`/api/diseños/`);
       if (!res.ok) throw new Error("No autorizado o error en la carga");
       const raw = await res.json();
       const validados = raw.map((diseño) => diseñoSchema.parse(diseño));
@@ -34,7 +34,7 @@ export const useDiseños = () => {
 
   const obtenerDiseñoPorId = async (id) => {
     try {
-      const res = await fetch(`/api/diseños/${id}`);
+      const res = await fetch(`/api/diseño_por_id/${id}/`);
       if (res.ok) {
         const datos = await res.json();
         return diseñoSchema.parse(datos);
@@ -49,6 +49,11 @@ export const useDiseños = () => {
 
   const crearDiseño = async (diseño) => {
     try {
+      const token = document.cookie 
+          .split("; ")
+          .find((row) => row.startsWith("accessToken="))
+          ?.split("=")[1];
+      if (!token) throw new Error("Token no encontrado");
       let body = diseño;
       let headers = {};
 
@@ -63,9 +68,12 @@ export const useDiseños = () => {
         headers["Content-Type"] = "application/json";
       }
 
-      const res = await fetch(`/api/diseños`, {
+      const res = await fetch(`/api/diseños/`, {
         method: "POST",
-        headers,
+        headers: {
+          ...headers,
+          Authorization: `Bearer ${token}`,
+        },
         body,
       });
 
@@ -90,6 +98,11 @@ export const useDiseños = () => {
 
   const actualizarDiseño = async (id, diseño) => {
     try {
+      const token = document.cookie 
+          .split("; ")
+          .find((row) => row.startsWith("accessToken="))
+          ?.split("=")[1];
+      if (!token) throw new Error("Token no encontrado");
       const validation = diseñoSchema.safeParse(diseño);
       if (!validation.success) {
         const errorMessages = validation.error.errors.map((err) => err.message);
@@ -97,10 +110,11 @@ export const useDiseños = () => {
         return false;
       }
 
-      const res = await fetch(`/api/diseños/${id}`, {
+      const res = await fetch(`/api/diseño_por_id/${id}/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(validation.data),
       });
@@ -124,8 +138,16 @@ export const useDiseños = () => {
 
   const eliminarDiseño = async (id) => {
     try {
-      const res = await fetch(`/api/diseños/${id}`, {
+      const token = document.cookie 
+          .split("; ")
+          .find((row) => row.startsWith("accessToken="))
+          ?.split("=")[1];
+      if (!token) throw new Error("Token no encontrado");
+      const res = await fetch(`/api/diseño_por_id/${id}`, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (res.ok) {

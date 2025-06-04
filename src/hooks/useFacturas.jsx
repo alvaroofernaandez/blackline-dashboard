@@ -20,7 +20,7 @@ export const useFacturas = () => {
 
   const fetchFacturas = async () => {
     try {
-      const res = await fetch("/api/facturas");
+      const res = await fetch("/api/facturas/");
       if (!res.ok) throw new Error("No autorizado o error en la API");
       const raw = await res.json();
       setFacturas(raw);
@@ -51,7 +51,7 @@ export const useFacturas = () => {
         return false;
       }
 
-      const res = await fetch("/api/facturas", {
+      const res = await fetch("/api/facturas/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
