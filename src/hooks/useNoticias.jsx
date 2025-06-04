@@ -77,7 +77,7 @@ export const useNoticias = () => {
         headers["Content-Type"] = "application/json";
       }
 
-      const res = await fetch(`/api/noticias`, {
+      const res = await fetch(`/api/noticias/`, {
         method: "POST",
         headers,
         body: isFormData ? data : JSON.stringify(data),

@@ -1,8 +1,8 @@
 ---
-import Home from '../components/General/Home';
+import Home from '../components/General/Home.jsx';
 import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="Inicio" havePlus={false} siteTitle="Dashboard">
-	<Home client:only="react" />
+	<Home client:load/>
 </Layout>

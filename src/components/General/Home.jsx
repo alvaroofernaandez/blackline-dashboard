@@ -67,12 +67,6 @@ const Home = () => {
             loading="eager"
           />
         )}
-        <img
-          src={noticia.imagen_url}
-          alt={noticia.titulo}
-          className="w-full h-36 object-cover rounded mb-2"
-          loading="eager"
-        />
         <h4 className="font-bold dark:text-white text-gray-700">
           {truncateText(noticia.titulo, 25)}
         </h4>

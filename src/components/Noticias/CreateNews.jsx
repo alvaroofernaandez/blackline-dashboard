@@ -14,14 +14,12 @@ const AnadirNoticia = () => {
   const manejarCambioImagen = (e) => {
     const archivo = e.target.files[0];
     if (archivo) {
-      // Validar tipo de archivo
       const tiposPermitidos = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
       if (!tiposPermitidos.includes(archivo.type)) {
         alert('Por favor selecciona un archivo de imagen válido (JPG, PNG, GIF, WEBP)');
         return;
       }
 
-      // Validar tamaño (10MB máximo)
       if (archivo.size > 10 * 1024 * 1024) {
         alert('El archivo es demasiado grande. Máximo 10MB permitido.');
         return;
@@ -29,7 +27,6 @@ const AnadirNoticia = () => {
 
       setArchivoImagen(archivo);
       
-      // Crear preview
       const reader = new FileReader();
       reader.onload = (e) => {
         setImagenPreview(e.target.result);
@@ -41,7 +38,6 @@ const AnadirNoticia = () => {
   const limpiarImagen = () => {
     setArchivoImagen(null);
     setImagenPreview(null);
-    // Limpiar el input file
     const inputFile = document.getElementById('imagen');
     if (inputFile) {
       inputFile.value = '';
@@ -61,7 +57,7 @@ const AnadirNoticia = () => {
       formData.append('imagen', archivoImagen);
     }
 
-    const exito = await crearNoticia(formData, true); // true indica que es FormData
+    const exito = await crearNoticia(formData, true); 
     if (exito) {
       const asunto = `Nueva noticia: ${e.target.titulo.value}`;
       const mensaje = `Se ha publicado una nueva noticia: ${e.target.titulo.value}\n\nDescripción: ${e.target.descripcion.value}`;
