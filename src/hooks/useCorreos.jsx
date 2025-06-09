@@ -8,11 +8,17 @@ export const useCorreos = () => {
   const enviarCorreosMasivos = async ({ asunto, mensaje, nombre }) => {
     try {
       setLoading(true);
+      const token = document.cookie 
+        .split("; ")
+        .find((row) => row.startsWith("accessToken="))
+        ?.split("=")[1];
+      if (!token) throw new Error("Token no encontrado");
 
       const res = await fetch("/api/enviar_correos_masivos/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ asunto, mensaje, nombre }),
       });
@@ -37,11 +43,17 @@ export const useCorreos = () => {
   const enviarCorreoPersonalizado = async ({ correo, asunto, mensaje, nombre }) => {
     try {
       setLoading(true);
+      const token = document.cookie 
+        .split("; ")
+        .find((row) => row.startsWith("accessToken="))
+        ?.split("=")[1];
+      if (!token) throw new Error("Token no encontrado");
 
       const res = await fetch("/api/enviar_correos_personalizados/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ correo, asunto, mensaje, nombre }),
       });

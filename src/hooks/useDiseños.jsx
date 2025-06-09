@@ -9,9 +9,9 @@ const diseñoSchema = z.object({
   descripcion: z.string().min(1, "La descripción es obligatoria."),
   precio: z.string().optional(),
   image: z.string().optional(),
-  alto: z.number().min(1, "El alto debe ser un número positivo."),
-  ancho: z.number().min(1, "El ancho debe ser un número positivo."),
-  duracion: z.number().min(1, "La duración debe ser un número positivo."), 
+  alto: z.number().min(0, "El alto debe ser un número positivo."),
+  ancho: z.number().min(0, "El ancho debe ser un número positivo."),
+  duracion: z.number().min(2, "La duración debe ser un número positivo."), 
 });
 
 export const useDiseños = () => {
@@ -34,7 +34,16 @@ export const useDiseños = () => {
 
   const obtenerDiseñoPorId = async (id) => {
     try {
-      const res = await fetch(`/api/diseño_por_id/${id}/`);
+      const token = document.cookie 
+        .split("; ")
+        .find((row) => row.startsWith("accessToken="))
+        ?.split("=")[1];
+      if (!token) throw new Error("Token no encontrado");
+      const res = await fetch(`/api/diseño_por_id/${id}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (res.ok) {
         const datos = await res.json();
         return diseñoSchema.parse(datos);
