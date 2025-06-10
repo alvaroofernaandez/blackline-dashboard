@@ -33,17 +33,19 @@ jobs:
           SERVER_IP: ${{ secrets.IP_SERVER }}
         run: |
           ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << 'EOF'
-            set -e  # Fallar si ocurre un error
+            set -e  # Falla si algo da error
 
             echo "📁 Entramos al proyecto"
             cd /var/www/blackline-dashboard/ || { echo "❌ No se pudo acceder al directorio"; exit 1; }
 
             echo "📦 Verificamos Node y NPM"
-            which node || echo "❌ Node no encontrado"
-            node -v || echo "❌ No se puede obtener versión de Node"
-            npm -v || echo "❌ No se puede obtener versión de NPM"
+            which node || { echo "❌ No se encuentra node"; exit 1; }
+            node -v || { echo "❌ No se puede obtener versión de Node"; exit 1; }
 
-            echo "⚒️ Obtenemos los últimos cambios"
+            which npm || { echo "❌ No se encuentra npm"; exit 1; }
+            npm -v || { echo "❌ No se puede obtener versión de NPM"; exit 1; }
+
+            echo "⚒️ Nos traemos los cambios"
             git pull || { echo "❌ git pull falló"; exit 1; }
 
             echo "📦 Instalamos dependencias"
@@ -52,13 +54,13 @@ jobs:
             echo "⚙️ Hacemos el build"
             npm run build || { echo "❌ npm run build falló"; exit 1; }
 
-            echo "🛑 Detenemos el servicio actual"
+            echo "🛑 Detenemos el servicio"
             sudo systemctl stop dashboard || { echo "❌ Error al detener el servicio"; exit 1; }
 
-            echo "⏳ Esperamos 5 segundos"
+            echo "⏳ Esperamos unos segundos..."
             sleep 5
 
-            echo "✅ Iniciamos el servicio actualizado"
+            echo "✅ Iniciamos el servicio"
             sudo systemctl start dashboard || { echo "❌ Error al iniciar el servicio"; exit 1; }
 
             echo "📋 Estado del servicio:"
