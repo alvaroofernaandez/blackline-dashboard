@@ -28,7 +28,9 @@ jobs:
           SERVER_IP: ${{ secrets.IP_SERVER }}
         run: |
           ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << 'EOF'
+            set -e
             cd /var/www/blackline-dashboard/
+            
             echo "⚒️ Nos traemos los cambios"
             git pull
 
@@ -36,6 +38,13 @@ jobs:
             npm install
             npm run build
 
-            echo "🌐 Reiniciamos el servicio"
-            sudo systemctl restart dashboard
+            echo "🛑 Detenemos el servicio"
+            sudo systemctl stop dashboard
+            
+            echo "⏳ Esperamos unos segundos..."
+            sleep 5
+            
+            echo "✅ Iniciamos el servicio"
+            sudo systemctl start dashboard
           EOF
+
