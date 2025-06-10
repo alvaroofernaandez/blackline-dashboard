@@ -32,5 +32,6 @@ jobs:
             git pull
             "⚙️Hacemos el build"
             npm run build
-            systemctl restart dashboard
+            systemctl stop dashboard
+            systemctl start dashboard
           EOF
