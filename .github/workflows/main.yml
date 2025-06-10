@@ -27,7 +27,7 @@ jobs:
             SERVER_IP: ${{ secrets.IP_SERVER }}
         run: |
           ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << 'EOF'
-            cd cd /var/www/blackline-dashboard/
+            cd /var/www/blackline-dashboard/
             "⚒️Nos traemos los cambios"
             git pull
             "⚙️Hacemos el build"
