@@ -34,7 +34,6 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << 'EOF'
             bash -i -c '
-              source ~/.nvm/nvm.sh
               echo "📁 Entramos al proyecto"
               cd /var/www/blackline-dashboard/ || { echo "❌ No se pudo acceder al directorio"; exit 1; }
           
