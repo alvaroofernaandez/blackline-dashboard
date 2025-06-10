@@ -40,8 +40,6 @@ jobs:
               echo "⚒️ Nos traemos los cambios"
               git pull || { echo "❌ git pull falló"; exit 1; }
           
-              echo "📦 Instalamos dependencias"
-              npm install || { echo "❌ npm install falló"; exit 1; }
           
               echo "⚙️ Hacemos el build"
               npm run build || { echo "❌ npm run build falló"; exit 1; }
@@ -49,9 +47,7 @@ jobs:
               echo "🛑 Detenemos el servicio"
               systemctl stop dashboard || { echo "❌ Error al detener el servicio"; exit 1; }
           
-              echo "⏳ Esperamos unos segundos..."
-              sleep 5
-          
+              echo "⏳ Esperamos unos segundos..."          
               echo "✅ Iniciamos el servicio"
               systemctl start dashboard || { echo "❌ Error al iniciar el servicio"; exit 1; }
           
