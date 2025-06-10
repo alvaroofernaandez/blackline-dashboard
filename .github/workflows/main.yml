@@ -39,28 +39,28 @@ jobs:
             cd /var/www/blackline-dashboard/ || { echo "❌ No se pudo acceder al directorio"; exit 1; }
 
             echo "📦 Verificamos Node y NPM"
-            /usr/bin/node -v || { echo "❌ No se puede obtener versión de Node"; exit 1; }
-            /usr/bin/npm -v || { echo "❌ No se puede obtener versión de NPM"; exit 1; }
+            node -v || { echo "❌ No se puede obtener versión de Node"; exit 1; }
+            npm -v || { echo "❌ No se puede obtener versión de NPM"; exit 1; }
 
             echo "⚒️ Nos traemos los cambios"
             git pull || { echo "❌ git pull falló"; exit 1; }
 
             echo "📦 Instalamos dependencias"
-            /usr/bin/npm install || { echo "❌ npm install falló"; exit 1; }
+            npm install || { echo "❌ npm install falló"; exit 1; }
 
             echo "⚙️ Hacemos el build"
-            /usr/bin/npm run build || { echo "❌ npm run build falló"; exit 1; }
+            npm run build || { echo "❌ npm run build falló"; exit 1; }
 
             echo "🛑 Detenemos el servicio"
-            sudo systemctl stop dashboard || { echo "❌ Error al detener el servicio"; exit 1; }
+            systemctl stop dashboard || { echo "❌ Error al detener el servicio"; exit 1; }
 
             echo "⏳ Esperamos unos segundos..."
             sleep 5
 
             echo "✅ Iniciamos el servicio"
-            sudo systemctl start dashboard || { echo "❌ Error al iniciar el servicio"; exit 1; }
+            systemctl start dashboard || { echo "❌ Error al iniciar el servicio"; exit 1; }
 
             echo "📋 Estado del servicio:"
-            sudo systemctl status dashboard --no-pager || true
+            systemctl status dashboard --no-pager || true
           EOF
 
