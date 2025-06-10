@@ -1,6 +1,6 @@
 name: Deploy blackline-dashboard
 
-on: 
+on:
   push:
     branches:
       - main
@@ -12,27 +12,30 @@ jobs:
     steps:
       - name: Configuración de SSH
         env:
-            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-            SERVER_USER: ${{ secrets.SERVER_USER }}
-            SERVER_IP: ${{ secrets.IP_SERVER }}  
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_IP: ${{ secrets.IP_SERVER }}
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H $SERVER_IP >> ~/.ssh/known_hosts
           ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "echo '✅ Conectado al servidor correctamente'"
+
       - name: Actualizar el servidor
         env:
-            SERVER_USER: ${{ secrets.SERVER_USER }}
-            SERVER_IP: ${{ secrets.IP_SERVER }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_IP: ${{ secrets.IP_SERVER }}
         run: |
           ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << 'EOF'
             cd /var/www/blackline-dashboard/
-            "⚒️Nos traemos los cambios"
+            echo "⚒️ Nos traemos los cambios"
             git pull
-            "⚙️Hacemos el build"
-            npx npm run build
-            "🌐Reiniciamos el servicio"
-            systemctl stop dashboard
-            systemctl start dashboard
+
+            echo "⚙️ Hacemos el build"
+            npm install
+            npm run build
+
+            echo "🌐 Reiniciamos el servicio"
+            sudo systemctl restart dashboard
           EOF
