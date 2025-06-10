@@ -41,7 +41,7 @@ jobs:
 
             echo "⚙️ Hacemos el build"
             npm run build || { echo "❌ npm run build falló"; exit 1; }
-
+             sleep 15
             echo "🛑 Detenemos el servicio"
             sudo systemctl stop dashboard || { echo "❌ Error al detener el servicio"; exit 1; }
 
