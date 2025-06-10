@@ -32,6 +32,7 @@ jobs:
             git pull
             "⚙️Hacemos el build"
             npm run build
+            "🌐Reiniciamos el servicio"
             systemctl stop dashboard
             systemctl start dashboard
           EOF
