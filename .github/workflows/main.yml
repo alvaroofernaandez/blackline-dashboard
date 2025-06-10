@@ -10,11 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Usar Node 18.20.8
+      - name: Usar Node.js 18.20.8
         uses: actions/setup-node@v3
         with:
           node-version: 18.20.8
-
 
       - name: Configuración de SSH
         env:
@@ -34,12 +33,17 @@ jobs:
           SERVER_IP: ${{ secrets.IP_SERVER }}
         run: |
           ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << 'EOF'
-            set -e  # Esto hace que el script falle si algo va mal
+            set -e  # Fallar si ocurre un error
 
             echo "📁 Entramos al proyecto"
             cd /var/www/blackline-dashboard/ || { echo "❌ No se pudo acceder al directorio"; exit 1; }
 
-            echo "⚒️ Nos traemos los cambios"
+            echo "📦 Verificamos Node y NPM"
+            which node || echo "❌ Node no encontrado"
+            node -v || echo "❌ No se puede obtener versión de Node"
+            npm -v || echo "❌ No se puede obtener versión de NPM"
+
+            echo "⚒️ Obtenemos los últimos cambios"
             git pull || { echo "❌ git pull falló"; exit 1; }
 
             echo "📦 Instalamos dependencias"
@@ -47,18 +51,16 @@ jobs:
 
             echo "⚙️ Hacemos el build"
             npm run build || { echo "❌ npm run build falló"; exit 1; }
-             sleep 15
-            echo "🛑 Detenemos el servicio"
+
+            echo "🛑 Detenemos el servicio actual"
             sudo systemctl stop dashboard || { echo "❌ Error al detener el servicio"; exit 1; }
 
-            echo "⏳ Esperamos unos segundos..."
+            echo "⏳ Esperamos 5 segundos"
             sleep 5
 
-            echo "✅ Iniciamos el servicio"
+            echo "✅ Iniciamos el servicio actualizado"
             sudo systemctl start dashboard || { echo "❌ Error al iniciar el servicio"; exit 1; }
 
             echo "📋 Estado del servicio:"
             sudo systemctl status dashboard --no-pager || true
           EOF
-
-
