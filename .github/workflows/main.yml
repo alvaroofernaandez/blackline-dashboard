@@ -38,10 +38,6 @@ jobs:
             echo "📁 Entramos al proyecto"
             cd /var/www/blackline-dashboard/ || { echo "❌ No se pudo acceder al directorio"; exit 1; }
 
-            echo "📦 Verificamos Node y NPM"
-            node -v || { echo "❌ No se puede obtener versión de Node"; exit 1; }
-            npm -v || { echo "❌ No se puede obtener versión de NPM"; exit 1; }
-
             echo "⚒️ Nos traemos los cambios"
             git pull || { echo "❌ git pull falló"; exit 1; }
 
