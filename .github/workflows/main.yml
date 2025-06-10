@@ -10,6 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Usar Node 18.20.8
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.20.8
+
+
       - name: Configuración de SSH
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
