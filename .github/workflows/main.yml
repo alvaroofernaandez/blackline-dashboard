@@ -29,7 +29,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << 'EOF'
             cd /var/www/blackline-dashboard/
             "⚒️Nos traemos los cambios"
-            git pull
+            git pull 
             "⚙️Hacemos el build"
             npm run build
             "🌐Reiniciamos el servicio"
